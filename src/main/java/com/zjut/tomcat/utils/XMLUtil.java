@@ -7,6 +7,12 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
+/**
+ * 解析XML文件
+ * 
+ * @author TLF
+ *
+ */
 public class XMLUtil {
 
 	private SAXReader saxReader;
