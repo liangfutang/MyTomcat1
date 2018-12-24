@@ -7,9 +7,9 @@ public abstract class Servlet {
 
 	public void service(Request request, Response response) {
 		if ("GET".equals(request.getMethod())) {
-			doGet(request, response);
+			this.doGet(request, response);
 		} else {
-			doPost(request, response);
+			this.doPost(request, response);
 		}
 	}
 	
