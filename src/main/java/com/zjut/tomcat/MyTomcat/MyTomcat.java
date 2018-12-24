@@ -14,9 +14,9 @@ public class MyTomcat {
 
 	private static int port = 8080;
 	
-	private static Map<String, String> servletMapping = new HashMap<>();
+	public static Map<String, String> servletMapping = new HashMap<>();
 	
-	private static Map<String, Servlet> servlet = new HashMap<>();
+	public static Map<String, Servlet> servlet = new HashMap<>();
 	
 	/**
 	 * 初始化配置到容器中

@@ -1,23 +1,19 @@
 package com.zjut.tomcat.servlet;
 
 import com.zjut.tomcat.MyTomcat.Servlet;
+import com.zjut.tomcat.http.Request;
+import com.zjut.tomcat.http.Response;
 
 public class MyFirstServlet extends Servlet{
 
 	@Override
-	public void doGet() {
-		
+	public void doGet(Request request, Response response) {
+		System.out.println("这个是我的第一个Servlet  " + "GET");
 	}
 
 	@Override
-	public void doPost() {
-		
+	public void doPost(Request request, Response response) {
+		System.out.println("这个是我的第一个Servlet  " + "POST");
 	}
 
-	public static void main(String[] args) {
-		MyFirstServlet myFirstServlet = new MyFirstServlet();
-		if(new MyFirstServlet() instanceof Servlet) {
-			
-		}
-	}
 }
