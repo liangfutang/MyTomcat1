@@ -1,8 +1,10 @@
 package com.zjut.tomcat.http;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.PrintStream;
 
 import com.zjut.tomcat.utils.FileUtil;
 
@@ -46,10 +48,16 @@ public class Response {
 		if (isPage) { // 是网页等字符文件使用字符流
 			writer(fileUtil.getResourceReader(path));
 		} else {  // 读取的是二进制流文件
+			// 显示方式一：
 			fileUtil.hasResource(path);
 			FileInputStream stream = new FileInputStream(path);
 			byte[] buf = new byte[512];
 			int len = 0;
+			String head  ="HTTP/1.0 200 OK\r\n" + 
+					"Content-Type: application/octet-stream\r\n" +
+					"Content-Disposition: inline;filename=" + new File(path).getName() + "\r\n" +
+					"Content-Length: " + stream.available() + "\r\n"+ "\r\n"; //根据HTTP协议，在头信息下面需要有一个空行来结束头信息
+			outputStream.write(head.getBytes());
 			try {
 				while((len=stream.read(buf)) != -1) {
 					outputStream.write(buf, 0, len);
@@ -59,7 +67,23 @@ public class Response {
 			}
 			stream.close();
 			outputStream.flush();
-			//outputStream.close();
+			outputStream.close();
+			
+			// 显示方式二
+			/*fileUtil.hasResource(path);
+			File fileToSend = new File(path);
+			FileInputStream stream = new FileInputStream(path);
+			byte[] data = new byte[stream.available()];
+			stream.read(data);
+			
+			PrintStream out = new PrintStream(outputStream, true);
+			out.println("HTTP/1.0 200 OK");
+			out.println("Content-Type: application/octet-stream");
+			out.println("Content-Length: " + fileToSend.length());
+			out.println();// 根据 HTTP 协议, 空行将结束头信息 
+			out.write(data);
+			stream.close();
+			out.close();*/
 		}
 	}
 	
